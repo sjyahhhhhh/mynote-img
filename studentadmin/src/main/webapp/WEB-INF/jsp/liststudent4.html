@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>显示学生信息</title>
+    <link rel="stylesheet" href="../../bootstrap-4.5.0-dist/css/bootstrap.css">
+    <script  src="../../js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+
+<hr>
+<form method="get">
+    请输入姓名：<input type="text" id="userName" name="userName">
+    <input type="submit" id="submit" name="submit" value="提交">
+</form>
+
+<hr>
+<table id="students" class="table-bordered table table-striped">
+    <tr>
+        <td>学号</td>
+        <td>姓名</td>
+        <td>班级</td>
+        <td>性别</td>
+        <td>专业</td>
+        <td>电话</td>
+        <td>宿舍</td>
+        <td>照片</td>
+        <td>操作</td>
+
+    </tr>
+
+
+</table>
+<script>
+    //使用jqury重写
+    $(function (){
+        //jqury ajax
+        $.ajax({
+            url:"ListStudentServlet2",
+            type:"POST",
+            data:{},
+            //请求成功后执行回调函数
+            success:function(data){
+                //json转化为数组
+                var students = JSON.parse(data);
+                //使用jqury创建tr把数据放到td中
+                console.log(students)
+                //js：json对象的遍历
+
+                for (index of students){
+                    var tr="<tr>"
+                    for (var i in index){
+                        // tr+="<td>"+index[i]+"</td>"
+                        if (i=="photoPath"){
+                            tr+="<td><img width='100px' src='"+index[i]+"'/></td>"
+                        }else{
+                            tr+="<td>"+index[i]+"</td>"
+                        }
+                    }
+                    tr+="<td><a href='#'>删除</a></td>"
+                    tr+="</tr>"
+                    //获取表格最后一行，after插入
+                    $("#students tr:last").after(tr)
+                }
+
+            }
+            ,error:function (){
+            console.log("wrong")
+            }
+        })
+        // alert("aa")
+    })
+</script>
+
+</body>
+</html>

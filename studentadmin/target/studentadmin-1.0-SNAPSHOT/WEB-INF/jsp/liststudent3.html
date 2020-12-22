@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示学生信息</title>
+</head>
+<body>
+
+<hr>
+<form method="get">
+    请输入姓名：<input type="text" id="userName" name="userName">
+    <input type="submit" id="submit" name="submit" value="提交">
+</form>
+
+<hr>
+<table>
+    <tr>
+        <td>学号</td>
+        <td>姓名</td>
+        <td>班级</td>
+        <td>性别</td>
+        <td>专业</td>
+        <td>电话</td>
+        <td>宿舍</td>
+        <td>照片</td>
+        <td>操作</td>
+
+    </tr>
+
+
+</table>
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if(xhr.status==200){
+                Json.parse(xhr.responseText);
+                for (var  s of students){
+                    console.log(s["stuName"]);
+                    var tr=document.createElement("tr");
+                    for (index of s){
+                        var td=document.createElement("td")
+
+                        if (index!="photoPath"){
+                            td.innerText=s[index];
+                            tr.append(td);
+                        }else{
+                            var img = document.createElement("img");
+                            img.src=s[index];
+                            td.append(img);
+                            tr.append(td);
+                        };
+                    }
+                }
+            }
+
+        }
+    };
+    xhr.open('POST','http://localhost/studentadmin_war_exploded/ListStudentServlet2');
+    xhr.send();
+</script>
+
+</body>
+</html>

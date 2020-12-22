@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="box">
+        <h2>Register</h2>
+        <form action="dealregister.jsp" method="post" onsubmit="return checkInput()">
+            <div class="inputbox">
+                <input type="text" name="username" id="username"><br>
+                <label>Input username</label>
+            </div>
+            <div class="inputbox">
+                <input type="password" name="password" id="password"><br>
+                <label>Input password</label>
+            </div>
+            <div class="inputbox">
+                <input type="password" name="password2" id="password2"><br>
+                <label>Input password again</label>
+            </div>
+            <input id="register"type="submit" value="register" >
+        </form>
+    </div>
+
+<script src="js/register.js"></script>
+</body>
+</html>
